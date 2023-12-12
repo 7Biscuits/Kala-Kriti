@@ -1,5 +1,5 @@
 export interface IDataModel {
-  mq2: number;
+  mq2: string;
   quality: string;
   coordinates: {
     latitude: number;

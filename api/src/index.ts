@@ -4,9 +4,9 @@ import cors from "cors";
 import { connect } from "mongoose";
 import { router } from "./router";
 
-const port = 3000;
+const port = 8080;
 
-connect("mongodb://localhost:27017/Kala-Kriti").then(() => {
+connect("mongodb://localhost:27017/Kala-Kriti").then((): void => {
   console.log("Connected to database");
 });
 

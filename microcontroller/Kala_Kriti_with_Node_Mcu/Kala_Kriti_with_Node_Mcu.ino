@@ -4,9 +4,9 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#define SCREEN_WIDTH 128      // OLED display width, in pixels
- #define SCREEN_HEIGHT 64     // OLED display height, in pixels
-#define OLED_RESET -1         // This for reset. It is not Important to write
+#define SCREEN_WIDTH 128     // OLED display width, in pixels
+#define SCREEN_HEIGHT 64     // OLED display height, in pixels
+#define OLED_RESET -1        // This for reset. It is not Important to write
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);      // OLED rest in node mcu mean write -1 and in Uno its 4
 
 WiFiClient client;
@@ -21,8 +21,8 @@ int blue = 12;                                 // 12 is GPIO pin  in NodeMcu & D
 int gasLevel = 0;                              // int variable for gas level
 String quality = "";
 
-char ssid[] = "YeagerEren";
-char pass[] = "pweu6570";
+char ssid[] = "wifi-name";
+char pass[] = "wifi-pass";
 
 void setup() {
   Serial.begin(115200);
@@ -86,7 +86,7 @@ void loop() {
     delay(500);
   }
 
-  postData(gasLevel, quality);
+  postData(String(gasLevel), quality);
 
   display.clearDisplay();
   display.setTextColor(WHITE);
@@ -103,7 +103,7 @@ void loop() {
 }
 
 void postData(String mq2_val, String quality) {
-  String URL = "http://localhost:3000/api/data/" + mq2_val + "/" + quality;
+  String URL = "http://<ip_address>:<port>/api/data/" + mq2_val + "/" + quality;
   httpClient.begin(client, URL);
   httpClient.POST(URL);
   Serial.println(URL);

@@ -3,7 +3,7 @@ import { IDataModel } from "../interface/IDataModel";
 
 const DataModel: Schema = new Schema<IDataModel>({
   mq2: {
-    type: Number,
+    type: String,
     required: true,
   },
   quality: {
