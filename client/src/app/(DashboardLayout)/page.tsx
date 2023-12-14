@@ -2,24 +2,15 @@
 import { Grid, Box } from "@mui/material";
 import PageContainer from "@/app/(DashboardLayout)/components/container/PageContainer";
 // components
-import YearlyBreakup from "@/app/(DashboardLayout)/components/dashboard/YearlyBreakup";
-import ProductPerformance from "@/app/(DashboardLayout)/components/dashboard/ProductPerformance";
-import MonthlyEarnings from "@/app/(DashboardLayout)/components/dashboard/MonthlyEarnings";
+import MQ2 from "@/app/(DashboardLayout)/components/dashboard/MQ2";
+import Data from "@/app/(DashboardLayout)/components/dashboard/Data";
+import AirQuality from "@/app/(DashboardLayout)/components/dashboard/AirQuality";
+import { ApiResponse } from "./interfaces/IApiResponse";
 import { useEffect, useState } from "react";
 
-interface ApiResponse {
-  mq2: string;
-  quality: string;
-  coordinates: {
-    latitude: number;
-    longitude: number;
-  };
-}
-
-const fetchData = async (): Promise<ApiResponse> => {
-  const response = await fetch("http://localhost:8080/api/data/latest");
+const fetchData = async (): Promise<ApiResponse[]> => {
+  const response = await fetch("http://localhost:8080/api/data/");
   const data = await response.json();
-  console.log(data);
   return data;
 };
 
@@ -27,22 +18,31 @@ const Dashboard = () => {
   const [MQ2Value, setMQ2Value] = useState("0");
   const [quality, setQuality] = useState("");
   const [color, setColor] = useState("");
+  const [data, setData] = useState<ApiResponse[]>([]);
 
   useEffect(() => {
-    const fetchDataInterval = setInterval(async () => {
+    const fetchDataOnce = async (): Promise<void> => {
       try {
-        const data = await fetchData();
-        setMQ2Value(data.mq2);
-        setQuality(data.quality);
-        console.log(data.mq2);
-        if (parseInt(data.mq2) < 400) setColor("#2FAC5F");
-        else if (parseInt(data.mq2) >= 400 && parseInt(data.mq2) <= 500)
+        const res = await fetchData();
+        setData(res);
+        const latestData = res[res.length - 1];
+        setMQ2Value(latestData.mq2);
+        setQuality(latestData.quality);
+        console.log(latestData.mq2);
+        if (parseInt(latestData.mq2) < 200) setColor("#2FAC5F");
+        else if (
+          parseInt(latestData.mq2) >= 200 &&
+          parseInt(latestData.mq2) <= 300
+        )
           setColor("#1E90FF");
-        else if (parseInt(data.mq2) > 500) setColor("#FF0000");
+        else if (parseInt(latestData.mq2) > 300) setColor("#FF0000");
+        console.log("fetched data");
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching initial data:", error);
       }
-    }, 5000);
+    };
+    fetchDataOnce();
+    const fetchDataInterval = setInterval(fetchDataOnce, 3000);
 
     return () => clearInterval(fetchDataInterval);
   }, []);
@@ -54,15 +54,15 @@ const Dashboard = () => {
           <Grid item xs={12} lg={4}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <YearlyBreakup mq2={MQ2Value} />
+                <MQ2 mq2={MQ2Value} />
               </Grid>
               <Grid item xs={12}>
-                <MonthlyEarnings quality={quality} color={color} />
+                <AirQuality quality={quality} color={color} dataMq2={data} />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12} lg={8}>
-            <ProductPerformance />
+            <Data data={data} />
           </Grid>
         </Grid>
       </Box>

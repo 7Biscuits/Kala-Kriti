@@ -5,9 +5,11 @@ import { useTheme } from '@mui/material/styles';
 import { Stack, Typography, Avatar } from '@mui/material';
 import { IconArrowDownRight } from '@tabler/icons-react';
 import DashboardCard from '@/app/(DashboardLayout)/components/shared/DashboardCard';
+import { ApiResponse } from "../../interfaces/IApiResponse";
 
-const MonthlyEarnings = ({ quality, color }: { quality: string, color: string }) => {
+const AirQuality = ({ quality, color, dataMq2 }: { quality: string, color: string, dataMq2: ApiResponse[] }) => {
   // chart color
+  // console.log(dataMq2[dataMq2.length - 1])
   const theme = useTheme();
   const secondary = theme.palette.secondary.main;
   const secondarylight = '#f5fcff';
@@ -48,7 +50,7 @@ const MonthlyEarnings = ({ quality, color }: { quality: string, color: string })
     {
       name: '',
       color: secondary,
-      data: [25, 66, 20, 40, 12, 58, 20],
+      data: [dataMq2[dataMq2.length - 1].mq2, dataMq2[dataMq2.length - 2].mq2, dataMq2[dataMq2.length - 3].mq2, dataMq2[dataMq2.length - 4].mq2, dataMq2[dataMq2.length - 5].mq2],
     },
   ];
 
@@ -56,12 +58,10 @@ const MonthlyEarnings = ({ quality, color }: { quality: string, color: string })
     <DashboardCard
       title="Air Quality"
       action={
-        <div style={{ width: 50, height: 50, backgroundColor: color, borderRadius: 100 }}>
-
-        </div>
+        <div style={{ width: 50, height: 50, backgroundColor: color, borderRadius: 100 }}></div>
       }
       footer={
-        <Chart options={optionscolumnchart} series={seriescolumnchart} type="area" height="60px" />
+        <Chart options={optionscolumnchart} series={dataMq2 ? seriescolumnchart : [40, 50, 60]} type="area" height="60px"></Chart>
       }
     >
       <>
@@ -72,11 +72,10 @@ const MonthlyEarnings = ({ quality, color }: { quality: string, color: string })
           <Avatar sx={{ bgcolor: errorlight, width: 27, height: 27 }}>
             <IconArrowDownRight width={20} color="#FA896B" />
           </Avatar>
-          
         </Stack>
       </>
     </DashboardCard>
   );
 };
 
-export default MonthlyEarnings;
+export default AirQuality;

@@ -19,7 +19,7 @@ router.get("/data/latest", async (_: Request, res: Response): Promise<void> => {
       const { mq2, quality, coordinates } = data[data.length - 1];
       res.json({ mq2: mq2, quality: quality, coordinates: coordinates });
     }
-    else {
+    else { 
       res.json({ mq2: "0", quality: "", coordinates: {latitude: 0, longitude: 0} });
     }
   } catch (error) {
@@ -47,6 +47,6 @@ router.post(
 );
 
 router.delete("/data", async (_: Request, res: Response) => {
-  await DataModel.deleteMany({});
-  res.json({ response: "data deleted" });
+ const d =  await DataModel.deleteMany({});
+  res.json({ response: "data deleted", data: d });
 });

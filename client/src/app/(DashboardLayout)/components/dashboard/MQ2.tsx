@@ -4,7 +4,7 @@ import { useTheme } from "@mui/material/styles";
 import { Grid, Stack, Typography, Avatar } from "@mui/material";
 import DashboardCard from "@/app/(DashboardLayout)/components/shared/DashboardCard";
 
-const YearlyBreakup = ({ mq2 }: { mq2: string }) => {
+const MQ2 = ({ mq2 }: { mq2: string }) => {
   const theme = useTheme();
   const optionscolumnchart: any = {
     chart: {
@@ -110,4 +110,4 @@ const YearlyBreakup = ({ mq2 }: { mq2: string }) => {
   );
 };
 
-export default YearlyBreakup;
+export default MQ2;

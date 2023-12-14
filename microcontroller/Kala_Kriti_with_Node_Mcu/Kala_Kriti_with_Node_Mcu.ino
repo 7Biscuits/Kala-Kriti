@@ -21,8 +21,8 @@ int blue = 12;                                 // 12 is GPIO pin  in NodeMcu & D
 int gasLevel = 0;                              // int variable for gas level
 String quality = "";
 
-char ssid[] = "wifi-name";
-char pass[] = "wifi-pass";
+char ssid[] = "ATL";
+char pass[] = "ATL@sbsR";
 
 void setup() {
   Serial.begin(115200);
@@ -63,14 +63,14 @@ void loop() {
   digitalWrite (buzzer, LOW);
   digitalWrite (relay, HIGH);
 
-  if (gasLevel < 400) {
+  if (gasLevel < 200) {
     quality = "GOOD";
     digitalWrite(relay, HIGH);
     digitalWrite (green, HIGH);
     delay(500);
   }
 
-  else if (gasLevel >= 400 and gasLevel < 500) {
+  else if (gasLevel >= 200 and gasLevel < 300) {
     quality = "Unhealthy";
     digitalWrite(relay, LOW);
     digitalWrite (blue, HIGH);
@@ -78,7 +78,7 @@ void loop() {
     delay(500);
   }
 
-  else if (gasLevel >= 500) {
+  else if (gasLevel >= 300) {
     quality = "Hazardous";
     digitalWrite(relay, LOW);
     digitalWrite (red, HIGH);
@@ -103,7 +103,7 @@ void loop() {
 }
 
 void postData(String mq2_val, String quality) {
-  String URL = "http://<ip_address>:<port>/api/data/" + mq2_val + "/" + quality;
+  String URL = "http://10.10.0.18:8080/api/data/" + mq2_val + "/" + quality;
   httpClient.begin(client, URL);
   httpClient.POST(URL);
   Serial.println(URL);
