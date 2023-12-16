@@ -36,10 +36,10 @@ void setup() {
    
   pinMode(buzzer, OUTPUT);                        // Set beeper for output
   pinMode(sensor, INPUT);                         // Set sensor for input
-  pinMode (relay, OUTPUT);
-  pinMode (red, OUTPUT);
-  pinMode (green, OUTPUT);
-  pinMode (blue, OUTPUT);
+  pinMode(relay, OUTPUT);
+  pinMode(red, OUTPUT);
+  pinMode(green, OUTPUT);
+  pinMode(blue, OUTPUT);
 
   WiFi.begin(ssid, pass);
   while (WiFi.status() != WL_CONNECTED) {

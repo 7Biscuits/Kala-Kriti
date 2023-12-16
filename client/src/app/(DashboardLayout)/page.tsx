@@ -36,7 +36,6 @@ const Dashboard = () => {
         )
           setColor("#1E90FF");
         else if (parseInt(latestData.mq2) > 300) setColor("#FF0000");
-        console.log("fetched data");
       } catch (error) {
         console.error("Error fetching initial data:", error);
       }

@@ -3,10 +3,11 @@ import { json } from "body-parser";
 import cors from "cors";
 import { connect } from "mongoose";
 import { router } from "./router";
+import { configDotenv } from "dotenv";
 
-const port = 8080;
+configDotenv();
 
-connect("mongodb://localhost:27017/Kala-Kriti").then((): void => {
+connect(`${process.env.MONGO_URI}`).then((): void => {
   console.log("Connected to database");
 });
 
@@ -22,6 +23,8 @@ app.get("/", (_: Request, res: Response): void => {
 });
 
 app.use("/api", router);
+
+const port = process.env.PORT || 8080;
 
 app.listen(port, (): void => {
   console.log(`server listening on http://localhost:${port}`);
