@@ -7,7 +7,7 @@ import { configDotenv } from "dotenv";
 
 configDotenv();
 
-connect(`${process.env.MONGO_URI}`).then((): void => {
+connect("mongodb://localhost:27017/Kala-Kriti").then((): void => {
   console.log("Connected to database");
 });
 
