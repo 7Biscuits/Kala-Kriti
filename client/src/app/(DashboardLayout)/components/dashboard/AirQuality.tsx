@@ -22,7 +22,7 @@ const AirQuality = ({
   const errorlight = "#fdede8";
 
   // chart
-  const optionscolumnchart: any = {
+  const optionscolumnchart = {
     chart: {
       type: "area",
       fontFamily: "'Plus Jakarta Sans', sans-serif;",
@@ -52,7 +52,7 @@ const AirQuality = ({
       theme: theme.palette.mode === "dark" ? "dark" : "light",
     },
   };
-  const seriescolumnchart: any = [
+  const seriescolumnchart = [
     {
       name: "",
       color: secondary,

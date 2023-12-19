@@ -103,9 +103,10 @@ void loop() {
 }
 
 void postData(String mq2_val, String quality) {
-  String URL = "http://10.10.0.18:8080/api/data/" + mq2_val + "/" + quality;
+  String URL = "http://10.10.0.14:8080/api/data/" + mq2_val + "/" + quality;
+  // String URL = "https://mykalakriti.up.railway.app/api/data/" + mq2_val + "/" + quality;
   httpClient.begin(client, URL);
   httpClient.POST(URL);
   Serial.println(URL);
-  delay(3000);
+  delay(2500);
 }

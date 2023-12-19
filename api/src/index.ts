@@ -3,6 +3,7 @@ import { json } from "body-parser";
 import cors from "cors";
 import { connect } from "mongoose";
 import { router } from "./router";
+import { getIPAddress } from "./helpers/getIP";
 import { configDotenv } from "dotenv";
 
 configDotenv();
@@ -27,5 +28,5 @@ app.use("/api", router);
 const port = process.env.PORT || 8080;
 
 app.listen(port, (): void => {
-  console.log(`server listening on http://localhost:${port}`);
+  console.log(`server listening on http://localhost:${port} \n${getIPAddress()}`);
 });
