@@ -5,7 +5,7 @@ const postData = async (): Promise<void> => {
   if (mq2_val < 200) quality = "GOOD";
   else if (mq2_val >= 200 && mq2_val < 300) quality = "UNHEALTHY";
   else quality = "HAZARDOUS";
-  await fetch(`https://mykalakriti.up.railway.app/api/data/${mq2_val}/${quality}`, {
+  await fetch(`http://localhost:8080/api/data/${mq2_val}/${quality}`, {
     method: "POST",
   }).then(() =>
     console.log("data posted", {

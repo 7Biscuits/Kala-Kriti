@@ -1,7 +1,7 @@
-import * as os from "os";
+import { networkInterfaces } from "os";
 
 export const getIPAddress = (): string | undefined => {
-  const interfaces = os.networkInterfaces();
+  const interfaces = networkInterfaces();
 
   for (const key of Object.keys(interfaces)) {
     const networkInterface = interfaces[key];
