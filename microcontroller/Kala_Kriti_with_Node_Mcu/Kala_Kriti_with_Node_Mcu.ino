@@ -21,8 +21,6 @@ int blue = 12;                                 // 12 is GPIO pin  in NodeMcu & D
 int gasLevel = 0;                              // int variable for gas level
 String quality = "";
 
-// char ssid[] = "Rahul's iPhone";
-// char pass[] = "securewithl0ve";
 char ssid[] = "<wifi-name>";
 char pass[] = "<wifi-pass>";
 
@@ -105,7 +103,7 @@ void loop() {
 }
 
 void postData(String mq2_val, String quality) {
-  String URL = "http://<ip-adress>:<port>/api/data/" + mq2_val + "/" + quality;
+  String URL = "http://<ip-address>:<port>/api/data/" + mq2_val + "/" + quality;
   httpClient.begin(client, URL);
   httpClient.POST(URL);
   Serial.println(URL);
